@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vstudio.mapper.TeacherMapper">
+    <!-- 一个命名空间里可以有多个select语句 -->
+    <select id="selectTeacherByID" parameterType="int" resultType="com.vstudio.model.Teacher">
+        SELECT * FROM `teacher` WHERE id = #{id}
+    </select>
+
+    <!-- 为了返回list 类型而定义的returnMap -->
+    <resultMap type="com.vstudio.model.Teacher" id="resultListTeacher">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="rate" property="rate" />
+        <result column="skype" property="skype" />
+        <result column="qq" property="qq" />
+        <result column="pmobile" property="pmobile" />
+        <result column="skills" property="skills" />
+        <result column="cdate" property="cdate" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 这个select语句对应上面的resultMap -->
+    <select id="selectTeachers" resultMap="resultListTeacher">
+        SELECT * FROM `teacher`
+    </select>
+
+    <!--执行增加操作的SQL语句。id和parameterType 分别与TeacherMapper接口中的addTeacher方法的名字和参数类型一致。
+        以#{name}的形式引用Teacher参数的name属性，MyBatis将使用反射读取Teacher参数的此属性。#{name}中name大小写敏感。
+        引用其他的属性与此一致。seGeneratedKeys设置为"true"表明要MyBatis获取由数据库自动生成的主键；keyProperty="id"
+        指定把获取到的主键值注入到Teacher的id属性-->
+    <insert id="addTeacher" parameterType="com.vstudio.model.Teacher" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO 'teacher'(name, rate, skype, qq, pmobile, skills, cdate, status)
+        VALUES (#{name}, #{rate}, #{skype}, #{qq}, #{pmobile}, #{skills}, #{cdate}, #{status})
+    </insert>
+
+</mapper>
