@@ -1,8 +1,11 @@
 package com.vstudio.springREST.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 /**
  * Created by yang on 26/03/2017.
  */
+@JsonAutoDetect
 public class Teacher {
 
     private int id;

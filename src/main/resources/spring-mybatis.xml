@@ -36,7 +36,14 @@
 
     <!-- 自动扫描mapper接口, 并实现 @Autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="" />
+        <property name="basePackage" value="com.vstudio.springREST.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
+    <!-- 使用 MapperFactoryBean 来配置mapper的方式，需要在sqlSessionFactory Bean中指定mybatis配置文件位置 -->
+    <!--<bean id="teacherMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+        <!--mapperInterface属性指定映射器接口，用于实现此接口并生成映射器对象-->
+        <!--<property name="mapperInterface" value="com.vstudio.mapper.TeacherMapper"/>-->
+    <!--</bean>-->
 </beans>
