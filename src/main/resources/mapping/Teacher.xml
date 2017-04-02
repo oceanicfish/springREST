@@ -5,7 +5,7 @@
 <mapper namespace="com.vstudio.springREST.mapper.TeacherMapper">
     <!-- 一个命名空间里可以有多个select语句 -->
     <select id="selectTeacherByID" parameterType="int" resultType="com.vstudio.springREST.model.Teacher">
-        SELECT * FROM `teacher` WHERE id = #{id}
+        select * from teacher where id = #{id}
     </select>
 
     <!-- 为了返回list 类型而定义的returnMap -->
@@ -23,7 +23,7 @@
 
     <!-- 这个select语句对应上面的resultMap -->
     <select id="selectTeachers" resultMap="resultListTeacher">
-        SELECT * FROM `teacher`
+        select * from teacher
     </select>
 
     <!--执行增加操作的SQL语句。id和parameterType 分别与TeacherMapper接口中的addTeacher方法的名字和参数类型一致。
@@ -31,8 +31,25 @@
         引用其他的属性与此一致。seGeneratedKeys设置为"true"表明要MyBatis获取由数据库自动生成的主键；keyProperty="id"
         指定把获取到的主键值注入到Teacher的id属性-->
     <insert id="addTeacher" parameterType="com.vstudio.springREST.model.Teacher" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO 'teacher'(name, rate, skype, qq, pmobile, skills, cdate, status)
-        VALUES (#{name}, #{rate}, #{skype}, #{qq}, #{pmobile}, #{skills}, #{cdate}, #{status})
+        insert into teacher (name, rate, skype, qq, pmobile, skills, cdate, status)
+        values (#{name}, #{rate}, #{skype}, #{qq}, #{pmobile}, #{skills}, #{cdate}, #{status})
     </insert>
+
+    <update id="updateTeacher" parameterType="com.vstudio.springREST.model.Teacher">
+        update teacher set
+        name = #{name},
+        rate = #{rate},
+        skype = #{skype},
+        qq = #{qq},
+        pmobile = #{pmobile},
+        skills = #{skills},
+        cdate = #{cdate},
+        status = #{status}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTeacher" parameterType="int">
+        delete from teacher where id = #{id}
+    </delete>
 
 </mapper>
